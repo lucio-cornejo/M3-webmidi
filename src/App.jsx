@@ -3,13 +3,6 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
-import WebmidiTest from './connect-browser-to-DAW'
-const { midiController, midiChannel } = WebmidiTest();
-
-console.log(
-  midiController, midiChannel, 123
-)
-
 function App() {
   const [count, setCount] = useState(0)
 
