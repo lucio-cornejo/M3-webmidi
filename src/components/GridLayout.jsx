@@ -1,6 +1,3 @@
-import midiControls from './../connect-browser-to-DAW'
-const { midiController, midiChannel } = midiControls;
-
 const Grid = ( {
   numRows = 8, numCols = 8, rightShift = 1, downShift = 4
 } ) => {

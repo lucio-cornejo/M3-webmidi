@@ -18,14 +18,6 @@ function onEnabled() {
   const soundChannel = virtualMidiOutput.channels[1];
   console.log(virtualMidiOutput.channels);
 
-  midiController.addListener("noteon", e => {
-    soundChannel.playNote(e.note.identifier, {attack : e.velocity});
-  });
-
-  midiController.addListener("noteoff", e => {
-    soundChannel.stopNote(e.note.identifier);
-  });
-
   return {
     "midiController" : midiController, 
     "midiChannel" : soundChannel,
