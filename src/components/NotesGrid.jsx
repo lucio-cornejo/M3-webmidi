@@ -1,11 +1,11 @@
-import Note from './Note';
+import { Note } from './Note';
 
 
-function NotesGrid ({
-  upperLeftCornerNote,
+export const NotesGrid = ({
+  baseNote,
   numRows = 8, numCols = 8,
   rightShift = 4, downShift = 1
-}) {
+}) => {
   let notesShifts = [];
   const upperRowShifts = [...Array(numCols).keys()].map(e => e*rightShift);
 
@@ -16,17 +16,16 @@ function NotesGrid ({
 
   const notesGridStyle = {
     display : 'grid',
-    gridTemplateRows : `repeat(${numRows}, calc(100svh / ${numRows}))`,
-    gridTemplateColumns : `repeat(${numCols}, calc(100svw / ${numCols}))`,
+    gridTemplateRows : `repeat(${numRows}, calc(80svh / ${numRows}))`,
+    gridTemplateColumns : `repeat(${numCols}, calc(100% / ${numCols}))`,
   }
-
 
   return (
     <>
       <div className="notes-grid" style={notesGridStyle}>
         {
           notesShifts.map(noteShift => (
-            <Note baseNote={upperLeftCornerNote} noteShift={noteShift}/>
+            <Note baseNote={baseNote} noteShift={noteShift}/>
           ))
         }
       </div>
@@ -38,5 +37,3 @@ function NotesGrid ({
 // midiChannel;
 //   .sendPitchBend(-0.5)
 //   .sendPitchBend(0.5, {time:'+200ms'})
-
-export default NotesGrid;

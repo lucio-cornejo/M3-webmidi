@@ -1,7 +1,10 @@
+import React from "react";
+import { notesGridBaseNoteContext } from "../App";
+
 const orderedPitchClasses = [
   'C', 'Db', 'D', 'Eb', 
   'E', 'F', 'Gb', 'G', 
-  'Ab', 'A','Bb', 'B'
+  'Ab', 'A', 'Bb', 'B'
 ];
 
 
@@ -12,8 +15,8 @@ function modulo(number, divisor) {
 }
 
 
-function shiftNoteAsText(noteText, noteShift) {
-  const [pitchClass, octave] = noteText.match(/([A-G])(\d+)/).slice(1, 3);
+export function shiftNoteAsText(noteText, noteShift) {
+  const [pitchClass, octave] = noteText.match(/([bA-G]+)(\d+)/).slice(1, 3);
 
   const shiftedPitchClass = orderedPitchClasses[
     modulo(noteShift + orderedPitchClasses.indexOf(pitchClass), 12)
@@ -24,12 +27,17 @@ function shiftNoteAsText(noteText, noteShift) {
 }
 
 
-function Note({baseNote, noteShift}) {
+export const Note = ({baseNote, noteShift}) => {
+  const { updateNotesGridBaseNote } = React.useContext(notesGridBaseNoteContext);
+
   return (
     <>
-      <div className="note">{shiftNoteAsText(baseNote, noteShift)}</div>
+      <div 
+        className="note"
+        onClick={(note) => updateNotesGridBaseNote(note.target.innerText)}
+      >
+        {shiftNoteAsText(baseNote, noteShift)
+      }</div>
     </>
   )
 }
-
-export default Note;

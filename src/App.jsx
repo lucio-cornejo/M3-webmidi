@@ -1,9 +1,7 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import React from 'react';
 import './App.css'
 
-import NotesGrid from './components/NotesGrid'
+import { NotesGrid } from './components/NotesGrid';
 
 // import midiControls from './connect-browser-to-DAW'
 // const { midiController, midiChannel } = midiControls;
@@ -17,7 +15,13 @@ const shiftOctave = (noteString, octaveShift) => {
   return shiftedOctave;
 }
 
-function App() {
+
+// Allow notes grid base note to be modified, to trigger
+// re-render of notes grid, via multiple components
+// Source: https://medium.com/@christopherthai/why-you-shouldnt-pass-react-s-setstate-as-a-prop-a-deep-dive-8a3dcd74bec8
+export const notesGridBaseNoteContext = React.createContext();
+
+export const App = () => {
   /*
   const [count, setCount] = useState(0);
 
@@ -95,18 +99,20 @@ function App() {
   )
   */
 
+  const [notesGridBaseNote, setNotesGridBaseNote] = React.useState('C3');
+  const updateNotesGridBaseNote = (newNotesGridBaseNote) => setNotesGridBaseNote(newNotesGridBaseNote);
+
   return (
-    <>
+    <notesGridBaseNoteContext.Provider 
+      value={{ notesGridBaseNote, updateNotesGridBaseNote }}
+    > 
       <NotesGrid
-        upperLeftCornerNote={'C3'}
+        baseNote={notesGridBaseNote}
         numCols={8}
         numRows={8}
         rightShift={4}
         downShift={1}
       />
-    </>
+    </notesGridBaseNoteContext.Provider>
   )
-
 }
-
-export default App

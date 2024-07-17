@@ -69,8 +69,9 @@ button:focus-visible {
 
 
 .notes-grid {
-  margin: 0;
+  width: 80%;
   padding: 0;
+  margin: auto;
 }
 
 .note {
