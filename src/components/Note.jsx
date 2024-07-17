@@ -1,5 +1,5 @@
 import React from "react";
-import { notesGridBaseNoteContext } from "../App";
+import { notesGridOctaveShiftContext } from "../App";
 
 const orderedPitchClasses = [
   'C', 'Db', 'D', 'Eb', 
@@ -28,13 +28,15 @@ export function shiftNoteAsText(noteText, noteShift) {
 
 
 export const Note = ({baseNote, noteShift}) => {
-  const { updateNotesGridBaseNote } = React.useContext(notesGridBaseNoteContext);
+  const { updateNotesGridBaseNote } = React.useContext(notesGridOctaveShiftContext);
 
   return (
     <>
       <div 
         className="note"
-        onClick={(note) => updateNotesGridBaseNote(note.target.innerText)}
+        onClick={(note) => updateNotesGridBaseNote(
+          parseInt(note.target.innerText.replace(/[^\d]/g, ''))
+        )}
       >
         {shiftNoteAsText(baseNote, noteShift)
       }</div>

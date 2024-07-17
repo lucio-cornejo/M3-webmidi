@@ -16,7 +16,7 @@ function onEnabled() {
   const virtualMidiOutput = WebMidi.getOutputByName(VITE_VIRTUAL_MIDI_NAME);
 
   const soundChannel = virtualMidiOutput.channels[1];
-  console.log(virtualMidiOutput.channels);
+  // console.log(virtualMidiOutput.channels);
 
   return {
     "midiController" : midiController, 
