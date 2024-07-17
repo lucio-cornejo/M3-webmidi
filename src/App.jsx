@@ -3,10 +3,10 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
-import Grid from './components/GridLayout'
+import NotesGrid from './components/NotesGrid'
 
-import midiControls from './connect-browser-to-DAW'
-const { midiController, midiChannel } = midiControls;
+// import midiControls from './connect-browser-to-DAW'
+// const { midiController, midiChannel } = midiControls;
 
 
 const shiftOctave = (noteString, octaveShift) => {
@@ -18,6 +18,7 @@ const shiftOctave = (noteString, octaveShift) => {
 }
 
 function App() {
+  /*
   const [count, setCount] = useState(0);
 
   const MidiPlayNote = (e) => {
@@ -45,6 +46,17 @@ function App() {
       midiController.removeListener("noteoff", MidiStopNote);
     }
   }, [count])
+
+
+  document.addEventListener('keydown', (evt) => {
+    if (evt.repeat) return;
+    if (evt.key.toLowerCase() === "h")  midiChannel.playNote('E3');
+  });
+  document.addEventListener('keyup', (evt) => {
+    if (evt.repeat) return;
+    if (evt.key.toLowerCase() === "h")  midiChannel.stopNote('E3');
+  });
+
 
   return (
     <>
@@ -81,6 +93,20 @@ function App() {
       </p>
     </>
   )
+  */
+
+  return (
+    <>
+      <NotesGrid
+        upperLeftCornerNote={'C3'}
+        numCols={8}
+        numRows={8}
+        rightShift={4}
+        downShift={1}
+      />
+    </>
+  )
+
 }
 
 export default App
