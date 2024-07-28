@@ -1,10 +1,10 @@
 import React from "react";
-import { notesGridOctaveShiftContext } from "./App";
 
 
-export const SetNotesGridOctaveShift = () => {
-  const { updateNotesGridOctaveShift } = React.useContext(notesGridOctaveShiftContext);
-
+export const SetNotesGridOctaveShift = ({
+  updateNotesGridOctaveShift
+}
+) => {
   const setNotesGridOctaveShift = (event) => {
     if (event.repeat) return;
     if (event.key.match(/\d+/)) updateNotesGridOctaveShift(parseInt(event.key));
@@ -16,4 +16,6 @@ export const SetNotesGridOctaveShift = () => {
       document.removeEventListener("keydown", setNotesGridOctaveShift);
     }
   })
+
+  return null;
 }
