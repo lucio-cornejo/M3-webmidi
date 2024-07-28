@@ -18,6 +18,8 @@ function onEnabled() {
   const soundChannel = virtualMidiOutput.channels[1];
   // console.log(virtualMidiOutput.channels);
 
+  midiController.addForwarder(virtualMidiOutput, { channels: 1, });
+
   return {
     "midiController" : midiController, 
     "midiChannel" : soundChannel,

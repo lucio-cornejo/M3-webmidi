@@ -17,6 +17,7 @@ export const App = () => {
     setNotesGridOctaveShift(newNotesGridOctaveShift);
   }
 
+  /*
   const MidiPlayNote = (e) => {
     console.log(e.note.identifier);
     midiChannel.playNote(e.note.identifier, {attack : e.velocity});
@@ -36,6 +37,8 @@ export const App = () => {
       midiController.removeListener("noteoff", MidiStopNote);
     }
   }, [notesGridOctaveShift])
+
+  */
 
 
 // midiChannel;
