@@ -3,7 +3,7 @@ import './App.css'
 
 import { NotesGrid } from './components/NotesGrid';
 import { SetNotesGridOctaveShift } from './setNotesGridOctaveShift';
-
+import PitchBendSlider from './components/PitchBendSlider';
 
 import midiControls from './connect-browser-to-DAW'
 const { midiController, midiChannel } = midiControls;
@@ -52,6 +52,8 @@ export const App = () => {
       <SetNotesGridOctaveShift 
         updateNotesGridOctaveShift={updateNotesGridOctaveShift}
       />
+      
+      <PitchBendSlider />
       <NotesGrid
         baseNote={`C${2 + notesGridOctaveShift}`}
         numCols={8}
