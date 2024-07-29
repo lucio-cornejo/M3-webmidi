@@ -2,6 +2,10 @@ import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 
+import midiControls from './../connect-browser-to-DAW'
+
+
+const { midiChannel } = midiControls;
 
 const marks = [
   { value: 1,    label: '+2' },
@@ -20,6 +24,7 @@ const PitchBendSlider = () => {
     return Math.round((num + Number.EPSILON) * 100) / 100;
   }
   const changeHandler = (event) => {
+    midiChannel.sendPitchBend(event.target.value);
     setPitchBendValue(event.target.value);
   };
   
@@ -32,6 +37,7 @@ const PitchBendSlider = () => {
     };
 
     setPitchBendValue(defaultPitchBendValue);
+    midiChannel.sendPitchBend(defaultPitchBendValue);
   };
 
 

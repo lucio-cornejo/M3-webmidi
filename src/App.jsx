@@ -6,7 +6,7 @@ import { SetNotesGridOctaveShift } from './setNotesGridOctaveShift';
 import PitchBendSlider from './components/PitchBendSlider';
 
 import midiControls from './connect-browser-to-DAW'
-const { midiController, midiChannel } = midiControls;
+const { midiController } = midiControls;
 
 
 export const App = () => {
