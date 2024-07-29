@@ -44,7 +44,7 @@ const PitchBendSlider = () => {
   return (
     <Box 
       sx={{ width: 300 }}
-      style={{ padding: '40px 0', }}
+      style={{ padding: '40px 0 30px 0', }}
     >
       <Slider
         size={'medium'}

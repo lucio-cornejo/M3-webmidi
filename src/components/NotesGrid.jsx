@@ -16,7 +16,7 @@ export const NotesGrid = ({
 
   const notesGridStyle = {
     display : 'grid',
-    gridTemplateRows : `repeat(${numRows}, calc(80svh / ${numRows}))`,
+    gridTemplateRows : `repeat(${numRows}, calc(100% / ${numRows}))`,
     gridTemplateColumns : `repeat(${numCols}, calc(100% / ${numCols}))`,
   }
 
