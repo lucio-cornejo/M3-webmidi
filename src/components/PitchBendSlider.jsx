@@ -4,7 +4,8 @@ import Slider from '@mui/material/Slider';
 
 import VibratoToggler from './VibratoToggler';
 
-import midiControls from './../connect-browser-to-DAW'
+import { roundToNumberOfDecimals } from './../utils/numberTransformers';
+import midiControls from '../connectBrowserToDaw'
 
 
 const { midiChannel } = midiControls;
@@ -21,10 +22,6 @@ const PitchBendSlider = () => {
   const defaultPitchBendValue = 0;
   const [pitchBendValue, setPitchBendValue] = useState(defaultPitchBendValue);
 
-  // Source: https://stackoverflow.com/a/11832950
-  const roundToTwoDecimals = (num) => {
-    return Math.round((num + Number.EPSILON) * 100) / 100;
-  }
   const pitchBendChangeHandler = (event) => {
     midiChannel.sendPitchBend(event.target.value);
     setPitchBendValue(event.target.value);
@@ -34,7 +31,7 @@ const PitchBendSlider = () => {
     const numSteps = 10;
     const changePerStep = (defaultPitchBendValue - pitchBendValue) / numSteps;
     for (let _ of Array(numSteps)) {
-      setPitchBendValue(previous => roundToTwoDecimals(previous + changePerStep));
+      setPitchBendValue(previous => roundToNumberOfDecimals(previous + changePerStep));
       await new Promise(r => setTimeout(r, 10));
     };
 

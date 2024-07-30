@@ -1,21 +1,22 @@
-import React from "react";
+import { useEffect } from "react";
 
 
-export const SetNotesGridOctaveShift = ({
+export default function SetNotesGridOctaveShift ({
   updateNotesGridOctaveShift
-}
-) => {
+}) {
   const setNotesGridOctaveShift = (event) => {
     if (event.repeat) return;
     if (event.key.match(/\d+/)) updateNotesGridOctaveShift(parseInt(event.key));
+
+    console.log(1)
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     document.addEventListener("keydown", setNotesGridOctaveShift);
     return () => {
       document.removeEventListener("keydown", setNotesGridOctaveShift);
     }
-  })
+  }, [])
 
   return null;
 }
