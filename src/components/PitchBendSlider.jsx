@@ -1,11 +1,13 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
+
+import VibratoToggler from './VibratoToggler';
 
 import midiControls from './../connect-browser-to-DAW'
 
 
-const { midiController, midiChannel } = midiControls;
+const { midiChannel } = midiControls;
 
 const marks = [
   { value: 1,    label: '+2' },
@@ -23,7 +25,7 @@ const PitchBendSlider = () => {
   const roundToTwoDecimals = (num) => {
     return Math.round((num + Number.EPSILON) * 100) / 100;
   }
-  const changeHandler = (event) => {
+  const pitchBendChangeHandler = (event) => {
     midiChannel.sendPitchBend(event.target.value);
     setPitchBendValue(event.target.value);
   };
@@ -41,36 +43,12 @@ const PitchBendSlider = () => {
   };
 
 
-  const isVibratoOn = useRef(false);
-  const channelaftertouchHandler = (event) => {
-    if (!isVibratoOn.current) return;
-
-    const semitonesUpShift = event.value * 0.333;
-    changeHandler( { target: { value : semitonesUpShift } } );
-  }
-
-  useEffect(() => {
-    midiController.addListener("channelaftertouch", channelaftertouchHandler);
-    return () => {
-      midiController.removeListener("channelaftertouch", channelaftertouchHandler);
-    }
-  }, [pitchBendValue])
-
-
   return (
     <div>
-      <div>
-        <button
-          style={{ padding: '40px 0 30px 0', }}
-          onClick={(e) => {
-            console.log(isVibratoOn.current);
-            isVibratoOn.current = !isVibratoOn.current;
-            console.log(isVibratoOn.current);
-          }}
-        >
-          {'Toggle vibrato'}
-        </button>
-      </div>
+      <VibratoToggler 
+        pitchBendValue={pitchBendValue}
+        pitchBendChangeHandler={pitchBendChangeHandler}
+      />
       <Box 
         sx={{ width: 300 }}
         style={{ padding: '40px 0 30px 0', }}
@@ -84,7 +62,7 @@ const PitchBendSlider = () => {
           max={1}
           marks={marks}
           valueLabelDisplay="on"
-          onChange={(e) => changeHandler(e)}
+          onChange={(e) => pitchBendChangeHandler(e)}
           onChangeCommitted={(e) => resetSliderToNeutralValue(e)}
         />
       </Box>
