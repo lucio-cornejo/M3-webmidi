@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import './App.css'
 
 import { NotesGrid } from './components/NotesGrid';
@@ -11,34 +11,32 @@ const { midiController } = midiControls;
 
 export const App = () => {
   const initialOctaveShift = 0;
-  const [notesGridOctaveShift, setNotesGridOctaveShift] = React.useState(initialOctaveShift);
+  const [notesGridOctaveShift, setNotesGridOctaveShift] = useState(initialOctaveShift);
   const updateNotesGridOctaveShift = (newNotesGridOctaveShift) => {
     midiController.octaveOffset = newNotesGridOctaveShift;
     setNotesGridOctaveShift(newNotesGridOctaveShift);
   }
 
-  /*
-  const MidiPlayNote = (e) => {
-    console.log(e.note.identifier);
-    midiChannel.playNote(e.note.identifier, {attack : e.velocity});
-  }
+  // const MidiPlayNote = (e) => {
+  //   console.log(e.note.identifier);
+  //   midiChannel.playNote(e.note.identifier, {attack : e.velocity});
+  // }
   
-  const MidiStopNote = (e) => {
-    console.log(e.note.identifier);
-    midiChannel.stopNote(e.note.identifier);
-  }
-  
-  React.useEffect(() => {
-    midiController.addListener("noteon", MidiPlayNote);
-    midiController.addListener("noteoff", MidiStopNote);
-    
-    return () => {
-      midiController.removeListener("noteon", MidiPlayNote);
-      midiController.removeListener("noteoff", MidiStopNote);
-    }
-  }, [notesGridOctaveShift])
+  // const MidiStopNote = (e) => {
+  //   console.log(e.note.identifier);
+  //   midiChannel.stopNote(e.note.identifier);
+  // }
 
-  */
+  // React.useEffect(() => {
+    // midiController.addListener("noteon", MidiPlayNote);
+    // midiController.addListener("noteoff", MidiStopNote);
+    
+    // return () => {
+      // midiController.removeListener("noteon", MidiPlayNote);
+      // midiController.removeListener("noteoff", MidiStopNote);
+    // }
+  // }, [notesGridOctaveShift])
+
 
   return (
     <>

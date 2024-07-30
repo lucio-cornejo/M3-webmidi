@@ -16,9 +16,12 @@ function onEnabled() {
   const virtualMidiOutput = WebMidi.getOutputByName(VITE_VIRTUAL_MIDI_NAME);
 
   const soundChannel = virtualMidiOutput.channels[1];
-  // console.log(virtualMidiOutput.channels);
 
   midiController.addForwarder(virtualMidiOutput, { channels: 1, });
+
+  // midiController.addListener("midimessage", (e) => {
+    // console.log(e);
+  // })
 
   return {
     "midiController" : midiController, 

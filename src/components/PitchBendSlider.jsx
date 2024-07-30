@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 
 import midiControls from './../connect-browser-to-DAW'
 
 
-const { midiChannel } = midiControls;
+const { midiController, midiChannel } = midiControls;
 
 const marks = [
   { value: 1,    label: '+2' },
@@ -41,24 +41,54 @@ const PitchBendSlider = () => {
   };
 
 
+  const isVibratoOn = useRef(false);
+  const channelaftertouchHandler = (event) => {
+    if (!isVibratoOn.current) return;
+
+    const semitonesUpShift = event.value * 0.333;
+    changeHandler( { target: { value : semitonesUpShift } } );
+  }
+
+  useEffect(() => {
+    midiController.addListener("channelaftertouch", channelaftertouchHandler);
+    return () => {
+      midiController.removeListener("channelaftertouch", channelaftertouchHandler);
+    }
+  }, [pitchBendValue])
+
+
   return (
-    <Box 
-      sx={{ width: 300 }}
-      style={{ padding: '40px 0 30px 0', }}
-    >
-      <Slider
-        size={'medium'}
-        value={pitchBendValue}
-        valueLabelFormat={(value) => `${value > 0 ? '+' : ''}${2 * value}`}
-        step={0.01}
-        min={-1}
-        max={1}
-        marks={marks}
-        valueLabelDisplay="on"
-        onChange={(e) => changeHandler(e)}
-        onChangeCommitted={(e) => resetSliderToNeutralValue(e)}
-      />
-    </Box>
+    <div>
+      <div>
+        <button
+          style={{ padding: '40px 0 30px 0', }}
+          onClick={(e) => {
+            console.log(isVibratoOn.current);
+            isVibratoOn.current = !isVibratoOn.current;
+            console.log(isVibratoOn.current);
+          }}
+        >
+          {'Toggle vibrato'}
+        </button>
+      </div>
+      <Box 
+        sx={{ width: 300 }}
+        style={{ padding: '40px 0 30px 0', }}
+      >
+        <Slider
+          size={'medium'}
+          value={pitchBendValue}
+          valueLabelFormat={(value) => `${value > 0 ? '+' : ''}${2 * value}`}
+          step={0.01}
+          min={-1}
+          max={1}
+          marks={marks}
+          valueLabelDisplay="on"
+          onChange={(e) => changeHandler(e)}
+          onChangeCommitted={(e) => resetSliderToNeutralValue(e)}
+        />
+      </Box>
+    </div>
   );
 }
 
